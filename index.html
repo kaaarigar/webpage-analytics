@@ -1,0 +1,64 @@
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Webpage</title>
+  </head>
+  
+  <style>
+  body {
+  margin: 0;
+  padding: 0;
+  font-family: "Lato", sans-serif;
+  font-size: 20pt;
+  font-weight: normal;
+  background: lightblue;
+  }
+  .main {
+  margin: 100px auto;
+  text-align: center;
+  }
+  button {
+  padding: 20px;
+  background: transparent;
+  font-family: "Lato", sans-serif;
+  font-size: 18pt;
+  border: 3px solid black;
+  }
+
+  </style>
+
+
+  <script>
+    window.onclick = function(event) {
+      id=event.target.id;
+       if (typeof(Storage) !== "undefined") {
+        if (localStorage[id]) {
+          localStorage[id] = Number(localStorage[id])+1;
+        } else {
+          localStorage[id] = 1;
+        }
+        console.log(id+" "+localStorage[id]);
+      } else {
+        console.log("browser does not support web storage");
+      }
+      //To send data to server when window is closed
+      window.addEventListener('beforeunload', function (e) {
+        data = JSON.stringify(localStorage);
+        console.log(data);
+        const xhr= new XMLHttpRequest();
+        xhr.open('POST', '/num', true)
+        xhr.setRequestHeader("Content-Type","application/json");
+        xhr.send(data);
+      });
+    }
+  </script>
+  <body>
+    <div id="main" class="main">
+    <button id="home">Home</button>
+    <button id="about">About Us</button>
+    <button id="signup">Sign UP </button>
+    </div>
+  </body>
+</html>
