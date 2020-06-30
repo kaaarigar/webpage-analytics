@@ -43,7 +43,7 @@
       } else {
         console.log("browser does not support web storage");
       }
-      //To send data to server when window is closed
+      //To send data to server when window is going to be closed
       window.addEventListener('beforeunload', function (e) {
         data = JSON.stringify(localStorage);
         console.log(data);
